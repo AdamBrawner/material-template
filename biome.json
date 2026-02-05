@@ -1,0 +1,46 @@
+{
+	"$schema": "https://biomejs.dev/schemas/2.3.14/schema.json",
+	"files": {
+		"maxSize": 1048576,
+		"includes": ["**", "!.git/**/*", "!dist/**/*", "!**/*.min.js"]
+	},
+	"assist": {
+		"enabled": true,
+		"actions": {
+			"source": {
+				"organizeImports": "on"
+			}
+		}
+	},
+	"linter": {
+		"enabled": true,
+		"rules": {
+			"recommended": true,
+			"correctness": {
+				"noUndeclaredDependencies": "error",
+				"noUndeclaredVariables": "error"
+			},
+			"nursery": {
+				"noImportCycles": "error",
+				"noUnusedExpressions": "error"
+			},
+			"style": {
+				"useThrowOnlyError": "error"
+			},
+			"suspicious": {
+				"noUnassignedVariables": "error",
+				"useAwait": "error",
+				"useErrorMessage": "error"
+			}
+		}
+	},
+	"formatter": {
+		"enabled": true
+	},
+	"vcs": {
+		"enabled": true,
+		"clientKind": "git",
+		"useIgnoreFile": true,
+		"defaultBranch": "main"
+	}
+}
