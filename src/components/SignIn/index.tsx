@@ -150,10 +150,43 @@ export default function SignIn(props: { disableCustomTheme?: boolean }) {
 					<Typography
 						component="h1"
 						variant="h4"
-						sx={{ width: "100%", fontSize: "clamp(2rem, 10vw, 2.15rem)" }}
+						sx={{
+							width: "100%",
+							fontSize: "clamp(2rem, 10vw, 2.15rem)",
+							display: "flex",
+							justifyContent: "center",
+						}}
 					>
 						ARS Unify Login
 					</Typography>
+
+					<Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
+						<Button
+							fullWidth
+							variant="outlined"
+							onClick={() => user.setUsername("bauto@ars.com")}
+							startIcon={
+								<img
+									src={ArsNetworkLogo}
+									alt="ARS Corporate Network"
+									style={{ width: 24, height: 24 }}
+								/>
+							}
+						>
+							Sign in on ARS Corporate Network
+						</Button>
+						<Button
+							fullWidth
+							variant="outlined"
+							onClick={() => alert("Sign in with Okta")}
+							startIcon={<OktaIcon />}
+						>
+							Sign in with Okta
+						</Button>
+					</Box>
+
+					<Divider>or</Divider>
+
 					<Box
 						component="form"
 						onSubmit={handleSubmit}
@@ -187,7 +220,6 @@ export default function SignIn(props: { disableCustomTheme?: boolean }) {
 								error={passwordError}
 								helperText={passwordErrorMessage}
 								name="password"
-								placeholder="••••••"
 								type="password"
 								id="password"
 								autoComplete="current-password"
@@ -226,31 +258,6 @@ export default function SignIn(props: { disableCustomTheme?: boolean }) {
 								Forgot your password?
 							</Link>
 						)}
-					</Box>
-					<Divider>or</Divider>
-					<Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
-						<Button
-							fullWidth
-							variant="outlined"
-							onClick={() => user.setUsername("bauto@ars.com")}
-							startIcon={
-								<img
-									src={ArsNetworkLogo}
-									alt="ARS Corporate Network"
-									style={{ width: 24, height: 24 }}
-								/>
-							}
-						>
-							Sign in on ARS Corporate Network
-						</Button>
-						<Button
-							fullWidth
-							variant="outlined"
-							onClick={() => alert("Sign in with Okta")}
-							startIcon={<OktaIcon />}
-						>
-							Sign in with Okta
-						</Button>
 						<Typography sx={{ textAlign: "center" }}>
 							Don&apos;t have an account?{" "}
 							<Link
