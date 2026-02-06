@@ -129,7 +129,7 @@ export function DialogsProvider(props: DialogProviderProps) {
 }
 
 /** Depends on DialogsProvider */
-export function useDialogs(): DialogHook<boolean> {
+export default function useDialogs(): DialogHook<boolean> {
 	const dialogsContext = React.useContext(DialogsContext);
 	if (!dialogsContext) {
 		throw new Error("Dialogs context was used without a provider.");
