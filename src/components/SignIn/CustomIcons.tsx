@@ -1,6 +1,6 @@
-/** biome-ignore-all lint/a11y/noSvgWithoutTitle: demo icons */
 import SvgIcon from "@mui/material/SvgIcon";
 
+// fill="currentColor" makes it responsive to dark mode
 export function OktaIcon() {
 	return (
 		<SvgIcon>
@@ -10,6 +10,7 @@ export function OktaIcon() {
 				xmlns="http://www.w3.org/2000/svg"
 				viewBox="0 0 63 63"
 			>
+				<title>Okta Logo</title>
 				<g>
 					<path
 						d="M34.6,0.4l-1.3,16c-0.6-0.1-1.2-0.1-1.9-0.1c-0.8,0-1.6,0.1-2.3,0.2l-0.7-7.7c0-0.2,0.2-0.5,0.4-0.5h1.3
@@ -38,6 +39,7 @@ export function OktaIcon() {
 			 l3.3-2.7c0.2-0.2,0.2-0.4,0-0.6l-5.5-5.6l1-0.8c0.2-0.2,0.2-0.4,0-0.6l-5.5-5.5C42,42.6,40.9,43.5,39.7,44.2L39.7,44.2L39.7,44.2z
 				M39.7,62c-0.2,0.1-0.5-0.1-0.5-0.3l-4.2-15.4c1.4-0.3,2.7-0.8,3.9-1.5l3.3,7c0.1,0.2,0,0.5-0.2,0.6l-1.2,0.5l3.3,7.1
 			 c0.1,0.2,0,0.5-0.2,0.6L39.7,62L39.7,62L39.7,62z"
+						fill="currentColor"
 					></path>
 				</g>
 			</svg>
