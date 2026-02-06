@@ -15,7 +15,7 @@ import Typography from "@mui/material/Typography";
 import * as React from "react";
 import ArsNetworkLogo from "../../assets/ars_network_logo.svg";
 import ArsLogo from "../../assets/ars-logo.png";
-import { useUser } from "../../context/UserContext";
+import { useUser } from "../../context/useUser";
 import AppTheme from "../../theme/AppTheme";
 import ThemeSwitcher from "../ThemeSwitcher";
 import { OktaIcon } from "./CustomIcons";

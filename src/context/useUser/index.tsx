@@ -1,11 +1,10 @@
 import * as React from "react";
+import type { UserContextValue } from "./types";
 
-const UserContext = React.createContext<{
-	username: string;
-	setUsername: React.Dispatch<React.SetStateAction<string>>;
-	logout: () => void;
-} | null>(null);
+/** don't export. the context can only be accessed via hooks in this module. */
+const UserContext = React.createContext<UserContextValue | null>(null);
 
+/** manage login and user rights. Access with useUser() */
 export const UserContextProvider = (props: { children: React.ReactNode }) => {
 	const [username, setUsername] = React.useState<string>("");
 
@@ -20,6 +19,7 @@ export const UserContextProvider = (props: { children: React.ReactNode }) => {
 	);
 };
 
+/** Depends on UserContextProvider */
 export const useUser = () => {
 	const context = React.useContext(UserContext);
 	if (!context) {
@@ -27,3 +27,5 @@ export const useUser = () => {
 	}
 	return context;
 };
+
+export default useUser;

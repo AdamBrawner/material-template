@@ -1,5 +1,5 @@
 import SignIn from "./components/SignIn";
-import { UserContextProvider } from "./context/UserContext";
+import { UserContextProvider } from "./context/useUser";
 
 function App() {
 	return (
