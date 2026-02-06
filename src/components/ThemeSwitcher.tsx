@@ -9,52 +9,54 @@ import * as React from "react";
 
 export default function ThemeSwitcher(props: { sx?: IconButtonProps["sx"] }) {
 	const theme = useTheme();
-
 	const prefersDarkMode = useMediaQuery("(prefers-color-scheme: dark)");
 	const preferredMode = prefersDarkMode ? "dark" : "light";
-
 	const { mode, setMode } = useColorScheme();
-
 	const paletteMode = !mode || mode === "system" ? preferredMode : mode;
-
 	const toggleMode = React.useCallback(() => {
 		setMode(paletteMode === "dark" ? "light" : "dark");
 	}, [setMode, paletteMode]);
-
+	const iconButtonRef = React.useRef<HTMLButtonElement>(null);
 	return (
 		<Tooltip
 			title={`${paletteMode === "dark" ? "Light" : "Dark"} mode`}
 			enterDelay={600}
+			slotProps={{
+				popper: {
+					// keep tooltip attached to button when moved by SignIn sx prop
+					anchorEl: iconButtonRef.current,
+					disablePortal: true,
+				},
+			}}
 		>
-			<div>
-				<IconButton
-					sx={props.sx}
-					size="small"
-					aria-label={`Switch to ${paletteMode === "dark" ? "light" : "dark"} mode`}
-					onClick={toggleMode}
-				>
-					{theme.getColorSchemeSelector ? (
-						<React.Fragment>
-							<LightModeIcon
-								sx={{
-									display: "inline",
-									[theme.getColorSchemeSelector("dark")]: {
-										display: "none",
-									},
-								}}
-							/>
-							<DarkModeIcon
-								sx={{
+			<IconButton
+				ref={iconButtonRef}
+				sx={props.sx}
+				size="small"
+				aria-label={`Switch to ${paletteMode === "dark" ? "light" : "dark"} mode`}
+				onClick={toggleMode}
+			>
+				{theme.getColorSchemeSelector ? (
+					<React.Fragment>
+						<LightModeIcon
+							sx={{
+								display: "inline",
+								[theme.getColorSchemeSelector("dark")]: {
 									display: "none",
-									[theme.getColorSchemeSelector("dark")]: {
-										display: "inline",
-									},
-								}}
-							/>
-						</React.Fragment>
-					) : null}
-				</IconButton>
-			</div>
+								},
+							}}
+						/>
+						<DarkModeIcon
+							sx={{
+								display: "none",
+								[theme.getColorSchemeSelector("dark")]: {
+									display: "inline",
+								},
+							}}
+						/>
+					</React.Fragment>
+				) : null}
+			</IconButton>
 		</Tooltip>
 	);
 }
