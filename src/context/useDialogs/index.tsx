@@ -17,6 +17,7 @@ import type {
 	OpenPromptDialog,
 } from "./types";
 
+/** don't export. the context can only be accessed via hooks in this module. */
 const DialogsContext = React.createContext<{
 	open: OpenDialog;
 	close: CloseDialog<boolean>; // TODO: fix generic type to get non-bool response
@@ -127,6 +128,7 @@ export function DialogsProvider(props: DialogProviderProps) {
 	);
 }
 
+/** Depends on DialogsProvider */
 export function useDialogs(): DialogHook<boolean> {
 	const dialogsContext = React.useContext(DialogsContext);
 	if (!dialogsContext) {
