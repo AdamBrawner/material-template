@@ -2,7 +2,7 @@
 	"$schema": "https://biomejs.dev/schemas/2.3.14/schema.json",
 	"files": {
 		"maxSize": 1048576,
-		"includes": ["**", "!.git/**/*", "!dist/**/*", "!**/*.min.js"]
+		"includes": ["**", "!dist/**/*", "!**/*.min.js"]
 	},
 	"assist": {
 		"enabled": true,

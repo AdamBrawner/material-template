@@ -1,10 +1,10 @@
-import SignIn from "./components/SignIn";
+import UnifyApp from "./components/UnifyApp";
 import { UserContextProvider } from "./context/useUser";
 
 function App() {
 	return (
 		<UserContextProvider>
-			<SignIn />
+			<UnifyApp />
 		</UserContextProvider>
 	);
 }

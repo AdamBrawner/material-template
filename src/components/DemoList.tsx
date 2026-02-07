@@ -53,7 +53,10 @@ export default function DemoList() {
 		>
 			<Box sx={{ flex: 1, width: "100%" }}>
 				<Box sx={{ flexGrow: 1 }}>
-					<Alert>This is just a demo page.</Alert>
+					<Alert>
+						This is just a demo page. Click buttons to see dialogs and
+						notifications in action.
+					</Alert>
 				</Box>
 			</Box>
 		</PageContainer>
