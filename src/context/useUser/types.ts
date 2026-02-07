@@ -1,5 +1,14 @@
-export interface UserContextValue {
+export interface UserDTO {
 	username: string;
-	setUsername: React.Dispatch<React.SetStateAction<string>>;
+	accessRights: number[];
+	token?: string;
+	email?: string;
+}
+
+export interface UserContextValue {
+	info?: UserDTO;
+	setInfo: React.Dispatch<React.SetStateAction<UserDTO | undefined>>;
 	logout: () => void;
+	isAuthorized: () => boolean;
+	hasAccessRight: (requiredRight: number) => boolean;
 }

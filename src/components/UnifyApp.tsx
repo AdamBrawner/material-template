@@ -27,7 +27,7 @@ export default function UnifyApp(props: { disableCustomTheme?: boolean }) {
 			<UserContextProvider>
 				<NotificationsProvider>
 					<DialogsProvider>
-						<AuthorizedRoutes AppRouter={DemoRouter} />
+						<AuthorizedRoutes AppRouter={DemoRouter} requiredAccessRight={1} />
 					</DialogsProvider>
 				</NotificationsProvider>
 			</UserContextProvider>

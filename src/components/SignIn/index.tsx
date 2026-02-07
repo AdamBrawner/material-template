@@ -94,12 +94,7 @@ export default function SignIn(props: { disableCustomTheme?: boolean }) {
 		}
 		const data = new FormData(event.currentTarget);
 		const username = data.get("username") as string;
-		console.log({
-			username,
-			password: data.get("password"),
-		});
-		//localStorage.setItem("username", username);
-		user.setUsername(username);
+		user.setInfo({ username, accessRights: [1] });
 	};
 
 	const validateInputs = () => {
@@ -164,7 +159,9 @@ export default function SignIn(props: { disableCustomTheme?: boolean }) {
 						<Button
 							fullWidth
 							variant="outlined"
-							onClick={() => user.setUsername("bauto@ars.com")}
+							onClick={() =>
+								user.setInfo({ username: "bauto@ars.com", accessRights: [1] })
+							}
 							startIcon={
 								<img
 									src={ArsNetworkLogo}

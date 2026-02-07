@@ -4,7 +4,8 @@ import { useUser } from "../context/useUser";
 import UserAvatarOptionsMenu from "./UserAvatarOptionsMenu";
 
 export const UserAvatar: React.FC = () => {
-	const user = useUser();
+	const { info } = useUser();
+	const username = info?.username || "";
 	return (
 		<Stack
 			direction="row"
@@ -18,11 +19,10 @@ export const UserAvatar: React.FC = () => {
 		>
 			<Avatar
 				sizes="small"
-				alt={user.username}
-				sx={{ width: 36, height: 36, bgcolor: "primary.main" }}
-				title={user.username}
+				sx={{ width: 36, height: 36, bgcolor: "info.main" }}
+				title={username}
 			>
-				{user.username[0].toUpperCase()}
+				{username[0]?.toUpperCase()}
 			</Avatar>
 			<UserAvatarOptionsMenu />
 		</Stack>

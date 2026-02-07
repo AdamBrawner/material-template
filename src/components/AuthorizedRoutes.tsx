@@ -8,14 +8,16 @@ const SignIn = React.lazy(() => import("./SignIn"));
 
 interface AuthorizedRoutesProps {
 	AppRouter: React.ComponentType;
+	requiredAccessRight: number;
 }
 
 /** If authorized, show app with nav menu. If not, show sign in page. */
 export const AuthorizedRoutes: React.FC<AuthorizedRoutesProps> = ({
 	AppRouter,
+	requiredAccessRight,
 }) => {
-	const { username } = useUser();
-	if (!username)
+	const { isAuthorized, hasAccessRight } = useUser();
+	if (!isAuthorized())
 		return (
 			<React.Suspense fallback={<LinearProgress />}>
 				<ErrorBoundary>
@@ -23,10 +25,9 @@ export const AuthorizedRoutes: React.FC<AuthorizedRoutesProps> = ({
 				</ErrorBoundary>
 			</React.Suspense>
 		);
-	const signedIn = username.endsWith("@ars.com");
 	return (
 		<React.Suspense fallback={<LinearProgress />}>
-			{signedIn ? <AppRouter /> : <NotAuthorized />}
+			{hasAccessRight(requiredAccessRight) ? <AppRouter /> : <NotAuthorized />}
 		</React.Suspense>
 	);
 };
