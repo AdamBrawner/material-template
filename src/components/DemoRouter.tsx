@@ -13,7 +13,7 @@ const router = createHashRouter([
 				path: "/",
 				Component: DemoList,
 			},
-			// Fallback route for the example routes in dashboard sidebar items
+			// Fallback route
 			{
 				path: "*",
 				Component: NotAuthorized,
@@ -22,5 +22,6 @@ const router = createHashRouter([
 	},
 ]);
 
+/** Don't use Demo components in real apps */
 export const DemoRouter = () => <RouterProvider router={router} />;
 export default DemoRouter;

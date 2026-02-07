@@ -8,7 +8,7 @@ export const NotAuthorized = () => {
 	return (
 		<Box sx={{ mt: 4, display: "flex", justifyContent: "center" }}>
 			<Alert severity="error">
-				You are not authorized to view this application.
+				You are not authorized.
 				<Button
 					variant="outlined"
 					onClick={() => setUsername("")}

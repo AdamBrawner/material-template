@@ -10,6 +10,7 @@ import useDialogs from "../context/useDialogs";
 import useNotifications from "../context/useNotifications";
 import PageContainer from "./PageContainer";
 
+/** Don't use Demo components in real apps */
 export default function DemoList() {
 	const dialogs = useDialogs();
 	const notifications = useNotifications();

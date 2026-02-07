@@ -10,6 +10,7 @@ interface AuthorizedRoutesProps {
 	AppRouter: React.ComponentType;
 }
 
+/** If authorized, show app with nav menu. If not, show sign in page. */
 export const AuthorizedRoutes: React.FC<AuthorizedRoutesProps> = ({
 	AppRouter,
 }) => {
