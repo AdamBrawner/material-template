@@ -3,12 +3,10 @@ import { DialogsProvider } from "../context/useDialogs";
 import { NotificationsProvider } from "../context/useNotifications";
 import { UserContextProvider } from "../context/useUser";
 import AppTheme from "../theme/AppTheme";
-import {
-	dataGridCustomizations,
-	datePickersCustomizations,
-	formInputCustomizations,
-	sidebarCustomizations,
-} from "../theme/shared/customizations";
+import { dataGridCustomizations } from "../theme/shared/customizations/dataGrid";
+import { datePickersCustomizations } from "../theme/shared/customizations/datePickers";
+import { formInputCustomizations } from "../theme/shared/customizations/formInput";
+import { sidebarCustomizations } from "../theme/shared/customizations/sidebar";
 import AuthorizedRoutes from "./AuthorizedRoutes";
 import DemoRouter from "./DemoRouter";
 

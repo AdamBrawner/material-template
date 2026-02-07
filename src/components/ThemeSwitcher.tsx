@@ -22,10 +22,17 @@ export default function ThemeSwitcher(props: { sx?: IconButtonProps["sx"] }) {
 			title={`${paletteMode === "dark" ? "Light" : "Dark"} mode`}
 			enterDelay={600}
 			slotProps={{
+				// keep tooltip attached to button when moved by SignIn sx prop
 				popper: {
-					// keep tooltip attached to button when moved by SignIn sx prop
 					anchorEl: iconButtonRef.current,
 					disablePortal: true,
+				},
+				tooltip: {
+					sx: {
+						//prevent tooltip from being cut off when button is near edge of screen
+						overflow: "visible",
+						...props.sx,
+					},
 				},
 			}}
 		>
