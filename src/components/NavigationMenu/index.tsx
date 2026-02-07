@@ -12,14 +12,14 @@ import useMediaQuery from "@mui/material/useMediaQuery";
 import * as React from "react";
 import { matchPath, useLocation } from "react-router";
 import NavigationMenuContext from "../../context/NavigationMenuContext";
-import { DRAWER_WIDTH, MINI_DRAWER_WIDTH } from "../../data/constants";
-import DashboardSidebarDividerItem from "./DashboardSidebarDividerItem";
-import DashboardSidebarHeaderItem from "./DashboardSidebarHeaderItem";
-import DashboardSidebarPageItem from "./DashboardSidebarPageItem";
+import { DRAWER_WIDTH, MINI_DRAWER_WIDTH } from "./constants";
 import {
 	getDrawerSxTransitionMixin,
 	getDrawerWidthTransitionMixin,
 } from "./mixins";
+import NavigationMenuDividerItem from "./NavigationMenuDividerItem";
+import NavigationMenuHeaderItem from "./NavigationMenuHeaderItem";
+import NavigationMenuPageItem from "./NavigationMenuPageItem";
 
 export interface NavigationMenuProps {
 	expanded?: boolean;
@@ -132,8 +132,8 @@ export default function NavigationMenu({
 							width: mini ? MINI_DRAWER_WIDTH : "auto",
 						}}
 					>
-						<DashboardSidebarHeaderItem>Main items</DashboardSidebarHeaderItem>
-						<DashboardSidebarPageItem
+						<NavigationMenuHeaderItem>Main items</NavigationMenuHeaderItem>
+						<NavigationMenuPageItem
 							id="employees"
 							title="Employees"
 							icon={<PersonIcon />}
@@ -142,11 +142,9 @@ export default function NavigationMenu({
 								!!matchPath("/employees/*", pathname) || pathname === "/"
 							}
 						/>
-						<DashboardSidebarDividerItem />
-						<DashboardSidebarHeaderItem>
-							Example items
-						</DashboardSidebarHeaderItem>
-						<DashboardSidebarPageItem
+						<NavigationMenuDividerItem />
+						<NavigationMenuHeaderItem>Example items</NavigationMenuHeaderItem>
+						<NavigationMenuPageItem
 							id="reports"
 							title="Reports"
 							icon={<BarChartIcon />}
@@ -164,14 +162,14 @@ export default function NavigationMenu({
 										minWidth: 240,
 									}}
 								>
-									<DashboardSidebarPageItem
+									<NavigationMenuPageItem
 										id="sales"
 										title="Sales"
 										icon={<DescriptionIcon />}
 										href="/reports/sales"
 										selected={!!matchPath("/reports/sales", pathname)}
 									/>
-									<DashboardSidebarPageItem
+									<NavigationMenuPageItem
 										id="traffic"
 										title="Traffic"
 										icon={<DescriptionIcon />}
@@ -181,7 +179,7 @@ export default function NavigationMenu({
 								</List>
 							}
 						/>
-						<DashboardSidebarPageItem
+						<NavigationMenuPageItem
 							id="integrations"
 							title="Integrations"
 							icon={<LayersIcon />}

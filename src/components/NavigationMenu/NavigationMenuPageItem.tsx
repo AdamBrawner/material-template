@@ -13,12 +13,13 @@ import Typography from "@mui/material/Typography";
 import type {} from "@mui/material/themeCssVarsAugmentation";
 import * as React from "react";
 import { Link } from "react-router";
-import NavigationMenuContext, {
+import {
+	NavigationMenuContext,
 	useNavigationMenuContext,
 } from "../../context/NavigationMenuContext";
-import { MINI_DRAWER_WIDTH } from "../../data/constants";
+import { MINI_DRAWER_WIDTH } from "./constants";
 
-export interface DashboardSidebarPageItemProps {
+export interface NavigationMenuPageItemProps {
 	id: string;
 	title: string;
 	icon?: React.ReactNode;
@@ -31,7 +32,7 @@ export interface DashboardSidebarPageItemProps {
 	nestedNavigation?: React.ReactNode;
 }
 
-export default function DashboardSidebarPageItem({
+export default function NavigationMenuPageItem({
 	id,
 	title,
 	icon,
@@ -42,7 +43,7 @@ export default function DashboardSidebarPageItem({
 	selected = false,
 	disabled = false,
 	nestedNavigation,
-}: DashboardSidebarPageItemProps) {
+}: NavigationMenuPageItemProps) {
 	const sidebarContext = useNavigationMenuContext();
 	const {
 		onPageItemClick,

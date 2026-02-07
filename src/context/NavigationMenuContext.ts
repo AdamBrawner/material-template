@@ -1,6 +1,6 @@
 import * as React from "react";
 
-const NavigationMenuContext = React.createContext<{
+export const NavigationMenuContext = React.createContext<{
 	onPageItemClick: (id: string, hasNestedNavigation: boolean) => void;
 	mini: boolean;
 	fullyExpanded: boolean;

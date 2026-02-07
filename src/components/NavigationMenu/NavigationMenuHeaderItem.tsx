@@ -1,16 +1,16 @@
 import ListSubheader from "@mui/material/ListSubheader";
 import type {} from "@mui/material/themeCssVarsAugmentation";
 import { useNavigationMenuContext } from "../../context/NavigationMenuContext";
-import { DRAWER_WIDTH } from "../../data/constants";
+import { DRAWER_WIDTH } from "./constants";
 import { getDrawerSxTransitionMixin } from "./mixins";
 
-export interface DashboardSidebarHeaderItemProps {
+export interface NavigationMenuHeaderItemProps {
 	children?: React.ReactNode;
 }
 
-export default function DashboardSidebarHeaderItem({
+export default function NavigationMenuHeaderItem({
 	children,
-}: DashboardSidebarHeaderItemProps) {
+}: NavigationMenuHeaderItemProps) {
 	const sidebarContext = useNavigationMenuContext();
 	const {
 		mini = false,

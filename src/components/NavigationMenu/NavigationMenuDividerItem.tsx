@@ -3,7 +3,7 @@ import type {} from "@mui/material/themeCssVarsAugmentation";
 import { useNavigationMenuContext } from "../../context/NavigationMenuContext";
 import { getDrawerSxTransitionMixin } from "./mixins";
 
-export default function DashboardSidebarDividerItem() {
+export default function NavigationMenuDividerItem() {
 	const sidebarContext = useNavigationMenuContext();
 	const { fullyExpanded = true, hasDrawerTransitions } = sidebarContext;
 
