@@ -1,20 +1,20 @@
 export interface NavigationMenuPageDTO {
 	title: string;
 	icon?: React.ReactNode;
-	href: string;
+	href?: string;
 	requiresUserRightId?: number;
-	/** nested navigation */
-	pages?: NavigationMenuPageDTO[];
 	selectForSubPaths?: boolean;
+	defaultExpanded?: boolean;
 	//selectForRootPath?: boolean;
+	/** nested navigation disables link to href */
+	pages?: NavigationMenuPageDTO[];
 }
 
 export interface NavigationMenuPageState {
 	page: NavigationMenuPageDTO;
 	expanded: boolean;
 	selected: boolean;
-	defaultExpanded?: boolean;
-	/** nested navigation */
+	/** nested navigation disables link to href */
 	pages?: NavigationMenuPageState[];
 }
 

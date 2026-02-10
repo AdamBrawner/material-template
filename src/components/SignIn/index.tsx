@@ -98,7 +98,7 @@ export default function SignIn(props: { disableCustomTheme?: boolean }) {
 	const handleArsNetworkSignIn = () => {
 		user.setInfo({
 			username: "corporate@ars.com",
-			userRightIds: [DemoAccessRights.TrafficReports, DemoAccessRights.Basic],
+			userRightIds: Object.values(DemoAccessRights),
 		});
 	};
 

@@ -18,8 +18,15 @@ export function createNavigationMenuSectionStates({
 		...section,
 		pages: filterPagesByUserRights(section.pages, userRightIds),
 	}));
+	// remove pages that have no href and no pages
+	const accessiblePagesWithHref = accessiblePages.map((section) => ({
+		...section,
+		pages: section.pages.filter(
+			(page) => page.href || (page.pages && page.pages.length > 0),
+		),
+	}));
 	// remove empty sections
-	const nonEmptySections = accessiblePages.filter(
+	const nonEmptySections = accessiblePagesWithHref.filter(
 		(section) => section.pages.length > 0,
 	);
 	// create menu section states with selected and expanded properties for pages
@@ -41,9 +48,7 @@ function filterPagesByUserRights(
 		)
 		.map((page) => ({
 			...page,
-			pages: page.pages
-				? filterPagesByUserRights(page.pages, userRightIds)
-				: undefined,
+			pages: page.pages && filterPagesByUserRights(page.pages, userRightIds),
 		}));
 }
 
@@ -54,16 +59,16 @@ function selectAndExpandPages(
 ): NavigationMenuPageState[] {
 	return pages.map((page) => {
 		const targetPath = page.selectForSubPaths ? `${page.href}/*` : page.href;
-		const selected = !!matchPath(targetPath, pathname);
-		// may need selected logic for pathname === "/", but let's see if this works first
-		const canExpand = !!page.pages?.length;
-		const expanded = canExpand && expandedItemIds.includes(page.title);
+		const selected = !!targetPath && !!matchPath(targetPath, pathname);
+		const onNestedPage = page.pages?.some((nestedPage) =>
+			matchPath(`${nestedPage.href}/*`, pathname),
+		);
+		const expanded = expandedItemIds.includes(page.title) || !!onNestedPage;
 		const pages = page.pages
 			? selectAndExpandPages(page.pages, pathname, expandedItemIds)
 			: undefined;
 		return {
 			page,
-			defaultExpanded: selected && canExpand,
 			selected,
 			expanded,
 			pages,

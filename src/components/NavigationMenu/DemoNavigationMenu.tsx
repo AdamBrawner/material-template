@@ -11,12 +11,13 @@ export const DemoAccessRights = {
 	TrafficReports: 2,
 	Employees: 3,
 	Basic: 4,
+	Integrations: 5,
 } as const;
 
 /** each page must indicate if it's selected. pages with nested nav must indicate if default and currently expanded */
 export const demoMenuItems: NavigationMenuSectionDTO[] = [
 	{
-		title: "Main items",
+		title: "Main pages",
 		pages: [
 			{
 				title: "Home",
@@ -30,35 +31,60 @@ export const demoMenuItems: NavigationMenuSectionDTO[] = [
 				selectForSubPaths: true,
 				requiresUserRightId: DemoAccessRights.Employees,
 			},
-		],
-	},
-	{
-		title: "Example items",
-		pages: [
 			{
 				title: "Reports",
 				icon: <BarChartIcon />,
-				href: "/reports",
 				requiresUserRightId: DemoAccessRights.Basic,
 				pages: [
 					{
-						title: "Sales",
-						icon: <DescriptionIcon />,
-						href: "/reports/sales",
-						requiresUserRightId: DemoAccessRights.SalesReports,
+						title: "Basic",
+						icon: <BarChartIcon />,
+						href: "/reports/basic",
+						requiresUserRightId: DemoAccessRights.Basic,
 					},
 					{
 						title: "Traffic",
 						icon: <DescriptionIcon />,
 						href: "/reports/traffic",
-						requiresUserRightId: DemoAccessRights.TrafficReports,
+						requiresUserRightId: DemoAccessRights.Basic,
 					},
 				],
 			},
 			{
+				title: "Deports",
+				icon: <DescriptionIcon />,
+				requiresUserRightId: DemoAccessRights.TrafficReports,
+				defaultExpanded: true,
+				pages: [
+					{
+						title: "Deport Basic",
+						icon: <BarChartIcon />,
+						href: "/deports/basic",
+						requiresUserRightId: DemoAccessRights.TrafficReports,
+					},
+					{
+						title: "Deport Traffic",
+						icon: <DescriptionIcon />,
+						href: "/deports/traffic",
+						requiresUserRightId: DemoAccessRights.TrafficReports,
+					},
+				],
+			},
+		],
+	},
+	{
+		title: "Secondary pages",
+		pages: [
+			{
 				title: "Integrations",
 				icon: <LayersIcon />,
 				href: "/integrations",
+				requiresUserRightId: DemoAccessRights.Integrations,
+			},
+			{
+				title: "Disintegrations",
+				icon: <BarChartIcon />,
+				href: "/disintegrations",
 				requiresUserRightId: DemoAccessRights.Basic,
 			},
 		],

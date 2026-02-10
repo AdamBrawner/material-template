@@ -32,7 +32,7 @@ const NavigationMenuSection: React.FC<NavigationMenuSectionProps> = ({
 					title={pageState.page.title}
 					icon={pageState.page.icon}
 					href={pageState.page.href}
-					defaultExpanded={pageState.defaultExpanded}
+					defaultExpanded={pageState.page.defaultExpanded}
 					expanded={pageState.expanded}
 					selected={pageState.selected}
 					nestedNavigation={
@@ -53,7 +53,7 @@ const NavigationMenuSection: React.FC<NavigationMenuSectionProps> = ({
 										title={nestedPageState.page.title}
 										icon={nestedPageState.page.icon}
 										href={nestedPageState.page.href}
-										defaultExpanded={nestedPageState.defaultExpanded}
+										defaultExpanded={nestedPageState.page.defaultExpanded}
 										expanded={nestedPageState.expanded}
 										selected={nestedPageState.selected}
 									/>
