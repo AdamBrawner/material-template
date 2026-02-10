@@ -25,13 +25,11 @@ export const AuthorizedRoutes: React.FC<AuthorizedRoutesProps> = ({
 				</ErrorBoundary>
 			</React.Suspense>
 		);
+	const hasRequiredRight =
+		!requireUserRight || hasAccessRight(requireUserRight);
 	return (
 		<React.Suspense fallback={<LinearProgress />}>
-			{!requireUserRight || hasAccessRight(requireUserRight) ? (
-				<AppRouter />
-			) : (
-				<NotAuthorized />
-			)}
+			{hasRequiredRight ? <AppRouter /> : <NotAuthorized />}
 		</React.Suspense>
 	);
 };

@@ -7,7 +7,7 @@ const NotAuthorized = React.lazy(() => import("./NotAuthorized"));
 
 const router = createHashRouter([
 	{
-		Component: DemoLayout,
+		Component: DemoLayout, // wraps UnifyLayout to provide App specific props
 		children: [
 			{
 				path: "/",

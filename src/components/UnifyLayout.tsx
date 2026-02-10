@@ -13,6 +13,7 @@ interface UnifyLayoutProps {
 	menuSections: NavigationMenuProps["menuSections"];
 }
 
+/** contains react-router Outlet */
 export default function UnifyLayout({ title, menuSections }: UnifyLayoutProps) {
 	const theme = useTheme();
 

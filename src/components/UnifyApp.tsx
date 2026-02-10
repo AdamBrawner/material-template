@@ -17,8 +17,11 @@ const themeComponents = {
 };
 
 interface UnifyAppProps {
+	/** Generally this will be your RouterProvider. Router base Component should wrap UnifyLayout to provide props. */
 	AppRouter: React.ComponentType;
+	/** if given, user must have this right to access app routes */
 	requireUserRight?: number;
+	/** for debugging */
 	disableCustomTheme?: boolean;
 }
 
