@@ -25,7 +25,7 @@ const NavigationMenuSection: React.FC<NavigationMenuSectionProps> = ({
 			}}
 		>
 			<NavigationMenuHeaderItem>{section.title}</NavigationMenuHeaderItem>
-			{section.pages?.map((pageState) => (
+			{section.pages.map((pageState) => (
 				<NavigationMenuPageItem
 					key={pageState.page.title}
 					id={pageState.page.title}
@@ -35,6 +35,32 @@ const NavigationMenuSection: React.FC<NavigationMenuSectionProps> = ({
 					defaultExpanded={pageState.defaultExpanded}
 					expanded={pageState.expanded}
 					selected={pageState.selected}
+					nestedNavigation={
+						pageState.pages && (
+							<List
+								dense
+								sx={{
+									padding: 0,
+									my: 1,
+									pl: mini ? 0 : 1,
+									minWidth: 240,
+								}}
+							>
+								{pageState.pages.map((nestedPageState) => (
+									<NavigationMenuPageItem
+										key={nestedPageState.page.title}
+										id={nestedPageState.page.title}
+										title={nestedPageState.page.title}
+										icon={nestedPageState.page.icon}
+										href={nestedPageState.page.href}
+										defaultExpanded={nestedPageState.defaultExpanded}
+										expanded={nestedPageState.expanded}
+										selected={nestedPageState.selected}
+									/>
+								))}
+							</List>
+						)
+					}
 				/>
 			))}
 			<NavigationMenuDividerItem />
