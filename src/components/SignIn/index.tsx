@@ -17,6 +17,7 @@ import ArsNetworkLogo from "../../assets/ars_network_logo.svg";
 import ArsLogo from "../../assets/ars-logo.png";
 import { useUser } from "../../context/useUser";
 import AppTheme from "../../theme/AppTheme";
+import { DemoAccessRights } from "../NavigationMenu/DemoNavigationMenu";
 import ThemeSwitcher from "../ThemeSwitcher";
 import { OktaIcon } from "./CustomIcons";
 
@@ -79,14 +80,7 @@ export default function SignIn(props: { disableCustomTheme?: boolean }) {
 	const [open, setOpen] = React.useState(false);
 	const user = useUser();
 
-	const handleClickOpen = () => {
-		setOpen(true);
-	};
-
-	const handleClose = () => {
-		setOpen(false);
-	};
-
+	/** /api/Login/Authenticate */
 	const handleSubmit = (event: React.SubmitEvent<HTMLFormElement>) => {
 		event.preventDefault();
 		if (usernameError || passwordError) {
@@ -94,7 +88,34 @@ export default function SignIn(props: { disableCustomTheme?: boolean }) {
 		}
 		const data = new FormData(event.currentTarget);
 		const username = data.get("username") as string;
-		user.setInfo({ username, userRightIds: [1] });
+		user.setInfo({
+			username,
+			userRightIds: [DemoAccessRights.Basic, DemoAccessRights.SalesReports],
+		});
+	};
+
+	/** /api/Login/WindowsAuthenticate */
+	const handleArsNetworkSignIn = () => {
+		user.setInfo({
+			username: "corporate@ars.com",
+			userRightIds: [DemoAccessRights.TrafficReports, DemoAccessRights.Basic],
+		});
+	};
+
+	/** /api/Login/OktaAuthenticate?redirectTo=OktaUserToJwt */
+	const handleOktaSignIn = () => {
+		user.setInfo({
+			username: "okta@ars.com",
+			userRightIds: [DemoAccessRights.Basic, DemoAccessRights.Employees],
+		});
+	};
+
+	const handleClickOpen = () => {
+		setOpen(true);
+	};
+
+	const handleClose = () => {
+		setOpen(false);
 	};
 
 	const validateInputs = () => {
@@ -159,12 +180,7 @@ export default function SignIn(props: { disableCustomTheme?: boolean }) {
 						<Button
 							fullWidth
 							variant="outlined"
-							onClick={() =>
-								user.setInfo({
-									username: "corporate@ars.com",
-									userRightIds: [2],
-								})
-							}
+							onClick={handleArsNetworkSignIn}
 							startIcon={
 								<img
 									src={ArsNetworkLogo}
@@ -178,12 +194,7 @@ export default function SignIn(props: { disableCustomTheme?: boolean }) {
 						<Button
 							fullWidth
 							variant="outlined"
-							onClick={() =>
-								user.setInfo({
-									username: "okta@ars.com",
-									userRightIds: [3],
-								})
-							}
+							onClick={handleOktaSignIn}
 							startIcon={<OktaIcon />}
 						>
 							Sign in with Okta

@@ -7,17 +7,18 @@ const UserContext = React.createContext<UserContextValue | null>(null);
 
 /** manage login and user rights. Access with useUser() */
 export const UserContextProvider = (props: { children: React.ReactNode }) => {
-	const [info, setInfo] = useImmer<UserDTO | undefined>(undefined);
+	const [info, setInfo] = useImmer<UserDTO>(noUser);
 
 	const logout = () => {
-		setInfo(undefined);
+		setInfo(noUser);
 	};
+
 	const isAuthorized = () => {
 		// TODO: check if the token is valid and not expired
-		const ok = !!info?.username.endsWith("@ars.com");
-		if (ok && !info?.userRightIds.length) {
+		const ok = !!info.username.endsWith("@ars.com");
+		if (ok && !info.userRightIds.length) {
 			console.warn(
-				`${info?.username} seems to be authorized but has no access rights.`,
+				`${info.username} seems to be authorized but has no access rights.`,
 			);
 		}
 		return ok;
@@ -51,13 +52,21 @@ export const useUser = () => {
  * ...{canEdit && \<EditButton\>}
  * @returns an object with boolean values for each of the provided right ids, e.g. { 21: true, 32: false }
  */
-export function useUserRightIds(checkRightIds: number[] = []) {
+export function useUserRightIds(
+	checkRightIds: number[],
+): Record<number, boolean> {
 	const user = useUser();
-	const userRightIds = user.info?.userRightIds ?? [];
+	//const userRightIds = user.info?.userRightIds ?? [];
 	const result = Object.create(null);
 	checkRightIds.forEach((rightId) => {
-		result[rightId] = userRightIds.includes(rightId);
+		result[rightId] = user.hasAccessRight(rightId);
 	});
 	return result;
 }
+
+const noUser: UserDTO = {
+	username: "",
+	userRightIds: [],
+};
+
 export default useUser;

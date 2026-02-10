@@ -13,14 +13,16 @@ export function createNavigationMenuSectionStates({
 	expandedItemIds,
 	userRightIds,
 }: NavigationIntegration): NavigationMenuSectionState[] {
-	// filter out pages the user doesn't have access to
+	// remove pages the user doesn't have access to
 	const accessiblePages = menuSections.map((section) => ({
 		...section,
 		pages: filterPagesByUserRights(section.pages, userRightIds),
 	}));
+	// remove empty sections
 	const nonEmptySections = accessiblePages.filter(
 		(section) => section.pages.length > 0,
 	);
+	// create menu section states with selected and expanded properties for pages
 	return nonEmptySections.map((section) => ({
 		...section,
 		pages: selectAndExpandPages(section.pages, pathname, expandedItemIds),

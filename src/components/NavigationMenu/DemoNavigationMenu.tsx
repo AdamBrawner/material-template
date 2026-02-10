@@ -5,9 +5,15 @@ import LayersIcon from "@mui/icons-material/Layers";
 import PersonIcon from "@mui/icons-material/Person";
 import type { NavigationMenuSectionDTO } from "./types";
 
+// readonly object preferred over enum
+export const DemoAccessRights = {
+	SalesReports: 1,
+	TrafficReports: 2,
+	Employees: 3,
+	Basic: 4,
+} as const;
+
 /** each page must indicate if it's selected. pages with nested nav must indicate if default and currently expanded */
-//export const demoMenuItems: MenuItemsFunction = (pathname, expandedItemIds) => {
-//const baseItems: NavigationMenuSectionDTO[] = [
 export const demoMenuItems: NavigationMenuSectionDTO[] = [
 	{
 		title: "Main items",
@@ -22,6 +28,7 @@ export const demoMenuItems: NavigationMenuSectionDTO[] = [
 				icon: <PersonIcon />,
 				href: "/employees",
 				selectForSubPaths: true,
+				requiresUserRightId: DemoAccessRights.Employees,
 			},
 		],
 	},
@@ -32,18 +39,19 @@ export const demoMenuItems: NavigationMenuSectionDTO[] = [
 				title: "Reports",
 				icon: <BarChartIcon />,
 				href: "/reports",
+				requiresUserRightId: DemoAccessRights.Basic,
 				pages: [
 					{
 						title: "Sales",
 						icon: <DescriptionIcon />,
 						href: "/reports/sales",
-						requiresUserRightId: 1,
+						requiresUserRightId: DemoAccessRights.SalesReports,
 					},
 					{
 						title: "Traffic",
 						icon: <DescriptionIcon />,
 						href: "/reports/traffic",
-						requiresUserRightId: 2,
+						requiresUserRightId: DemoAccessRights.TrafficReports,
 					},
 				],
 			},
@@ -51,6 +59,7 @@ export const demoMenuItems: NavigationMenuSectionDTO[] = [
 				title: "Integrations",
 				icon: <LayersIcon />,
 				href: "/integrations",
+				requiresUserRightId: DemoAccessRights.Basic,
 			},
 		],
 	},

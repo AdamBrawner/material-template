@@ -8,7 +8,6 @@ import { datePickersCustomizations } from "../theme/shared/customizations/datePi
 import { formInputCustomizations } from "../theme/shared/customizations/formInput";
 import { sidebarCustomizations } from "../theme/shared/customizations/sidebar";
 import AuthorizedRoutes from "./AuthorizedRoutes";
-import DemoRouter from "./DemoRouter";
 
 const themeComponents = {
 	...dataGridCustomizations,
@@ -17,17 +16,30 @@ const themeComponents = {
 	...formInputCustomizations,
 };
 
-export default function UnifyApp(props: { disableCustomTheme?: boolean }) {
+interface UnifyAppProps {
+	AppRouter: React.ComponentType;
+	requireUserRight?: number;
+	disableCustomTheme?: boolean;
+}
+
+export default function UnifyApp({
+	disableCustomTheme,
+	requireUserRight,
+	AppRouter,
+}: UnifyAppProps) {
 	return (
 		<AppTheme
-			disableCustomTheme={props.disableCustomTheme}
+			disableCustomTheme={disableCustomTheme}
 			themeComponents={themeComponents}
 		>
 			<CssBaseline enableColorScheme />
 			<UserContextProvider>
 				<NotificationsProvider>
 					<DialogsProvider>
-						<AuthorizedRoutes AppRouter={DemoRouter} requiredAccessRight={1} />
+						<AuthorizedRoutes
+							AppRouter={AppRouter}
+							requireUserRight={requireUserRight}
+						/>
 					</DialogsProvider>
 				</NotificationsProvider>
 			</UserContextProvider>

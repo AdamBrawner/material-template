@@ -6,9 +6,9 @@ export interface UserDTO {
 }
 
 export interface UserContextValue {
-	info?: UserDTO;
-	/** with immer so you can do normal assignment */
-	setInfo: React.Dispatch<React.SetStateAction<UserDTO | undefined>>;
+	info: UserDTO;
+	/** login */
+	setInfo: React.Dispatch<React.SetStateAction<UserDTO>>;
 	logout: () => void;
 	isAuthorized: () => boolean;
 	hasAccessRight: (requiredRight: number) => boolean;
