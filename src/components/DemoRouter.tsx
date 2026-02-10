@@ -1,13 +1,13 @@
 import * as React from "react";
 import { createHashRouter, RouterProvider } from "react-router";
 
-const UnifyLayout = React.lazy(() => import("./UnifyLayout"));
+const DemoLayout = React.lazy(() => import("./DemoLayout"));
 const DemoList = React.lazy(() => import("./DemoList"));
 const NotAuthorized = React.lazy(() => import("./NotAuthorized"));
 
 const router = createHashRouter([
 	{
-		Component: UnifyLayout,
+		Component: DemoLayout,
 		children: [
 			{
 				path: "/",

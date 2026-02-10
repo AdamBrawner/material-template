@@ -14,11 +14,18 @@ export const UserContextProvider = (props: { children: React.ReactNode }) => {
 	};
 	const isAuthorized = () => {
 		// TODO: check if the token is valid and not expired
-		return !!info?.username.endsWith("@ars.com");
+		const ok = !!info?.username.endsWith("@ars.com");
+		if (ok && !info?.userRightIds.length) {
+			console.warn(
+				`${info?.username} seems to be authorized but has no access rights.`,
+			);
+		}
+		return ok;
 	};
+
 	const hasAccessRight = (requiredRight: number) => {
 		if (!info) return false;
-		return info.accessRights.some((right) => right === requiredRight);
+		return info.userRightIds.some((right) => right === requiredRight);
 	};
 
 	return (
@@ -30,7 +37,7 @@ export const UserContextProvider = (props: { children: React.ReactNode }) => {
 	);
 };
 
-/** Depends on UserContextProvider */
+/** If you only want to check access rights, prefer useUserRightIds. Depends on UserContextProvider. */
 export const useUser = () => {
 	const context = React.useContext(UserContext);
 	if (!context) {
@@ -39,4 +46,18 @@ export const useUser = () => {
 	return context;
 };
 
+/** Depends on UserContextProvider.
+ * Example JSX: const { 21: canEdit, 32: canDelete } = useUserRightIds([21, 32]);
+ * ...{canEdit && \<EditButton\>}
+ * @returns an object with boolean values for each of the provided right ids, e.g. { 21: true, 32: false }
+ */
+export function useUserRightIds(checkRightIds: number[] = []) {
+	const user = useUser();
+	const userRightIds = user.info?.userRightIds ?? [];
+	const result = Object.create(null);
+	checkRightIds.forEach((rightId) => {
+		result[rightId] = userRightIds.includes(rightId);
+	});
+	return result;
+}
 export default useUser;

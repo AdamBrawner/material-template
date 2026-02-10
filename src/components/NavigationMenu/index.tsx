@@ -1,31 +1,28 @@
-import BarChartIcon from "@mui/icons-material/BarChart";
-import DescriptionIcon from "@mui/icons-material/Description";
-import LayersIcon from "@mui/icons-material/Layers";
-import PersonIcon from "@mui/icons-material/Person";
 import Box from "@mui/material/Box";
 import Drawer from "@mui/material/Drawer";
-import List from "@mui/material/List";
 import { useTheme } from "@mui/material/styles";
 import Toolbar from "@mui/material/Toolbar";
 import type {} from "@mui/material/themeCssVarsAugmentation";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import * as React from "react";
-import { matchPath, useLocation } from "react-router";
+import { useLocation } from "react-router";
 import NavigationMenuContext from "../../context/NavigationMenuContext";
+import { useUser } from "../../context/useUser";
 import { DRAWER_WIDTH, MINI_DRAWER_WIDTH } from "./constants";
 import {
 	getDrawerSxTransitionMixin,
 	getDrawerWidthTransitionMixin,
 } from "./mixins";
-import NavigationMenuDividerItem from "./NavigationMenuDividerItem";
-import NavigationMenuHeaderItem from "./NavigationMenuHeaderItem";
-import NavigationMenuPageItem from "./NavigationMenuPageItem";
+import NavigationMenuSection from "./NavigationMenuSection";
+import { createNavigationMenuSectionStates } from "./navigationMenuUtilities";
+import type { NavigationMenuSectionDTO } from "./types";
 
 export interface NavigationMenuProps {
 	expanded?: boolean;
 	setExpanded: (expanded: boolean) => void;
 	disableCollapsibleSidebar?: boolean;
 	container?: Element;
+	menuSections: NavigationMenuSectionDTO[];
 }
 
 export default function NavigationMenu({
@@ -33,11 +30,12 @@ export default function NavigationMenu({
 	setExpanded,
 	disableCollapsibleSidebar = false,
 	container,
+	menuSections,
 }: NavigationMenuProps) {
-	const theme = useTheme();
-
+	const user = useUser();
 	const { pathname } = useLocation();
 
+	const theme = useTheme();
 	const [expandedItemIds, setExpandedItemIds] = React.useState<string[]>([]);
 
 	const isOverSmViewport = useMediaQuery(theme.breakpoints.up("sm"));
@@ -124,73 +122,32 @@ export default function NavigationMenu({
 							: {}),
 					}}
 				>
-					<List
-						dense
-						sx={{
-							padding: mini ? 0 : 0.5,
-							mb: 4,
-							width: mini ? MINI_DRAWER_WIDTH : "auto",
-						}}
-					>
-						<NavigationMenuHeaderItem>Main items</NavigationMenuHeaderItem>
-						<NavigationMenuPageItem
-							id="employees"
-							title="Employees"
-							icon={<PersonIcon />}
-							href="/employees"
-							selected={
-								!!matchPath("/employees/*", pathname) || pathname === "/"
+					{createNavigationMenuSectionStates({
+						menuSections,
+						pathname,
+						expandedItemIds,
+						userRightIds: user.info?.userRightIds ?? [],
+					}).map((section) => (
+						<NavigationMenuSection
+							section={section}
+							mini={mini}
+							key={
+								section.title || `section for ${section.pages?.[0]?.page.title}`
 							}
 						/>
-						<NavigationMenuDividerItem />
-						<NavigationMenuHeaderItem>Example items</NavigationMenuHeaderItem>
-						<NavigationMenuPageItem
-							id="reports"
-							title="Reports"
-							icon={<BarChartIcon />}
-							href="/reports"
-							selected={!!matchPath("/reports", pathname)}
-							defaultExpanded={!!matchPath("/reports", pathname)}
-							expanded={expandedItemIds.includes("reports")}
-							nestedNavigation={
-								<List
-									dense
-									sx={{
-										padding: 0,
-										my: 1,
-										pl: mini ? 0 : 1,
-										minWidth: 240,
-									}}
-								>
-									<NavigationMenuPageItem
-										id="sales"
-										title="Sales"
-										icon={<DescriptionIcon />}
-										href="/reports/sales"
-										selected={!!matchPath("/reports/sales", pathname)}
-									/>
-									<NavigationMenuPageItem
-										id="traffic"
-										title="Traffic"
-										icon={<DescriptionIcon />}
-										href="/reports/traffic"
-										selected={!!matchPath("/reports/traffic", pathname)}
-									/>
-								</List>
-							}
-						/>
-						<NavigationMenuPageItem
-							id="integrations"
-							title="Integrations"
-							icon={<LayersIcon />}
-							href="/integrations"
-							selected={!!matchPath("/integrations", pathname)}
-						/>
-					</List>
+					))}
 				</Box>
 			</React.Fragment>
 		),
-		[mini, hasDrawerTransitions, isFullyExpanded, expandedItemIds, pathname],
+		[
+			mini,
+			hasDrawerTransitions,
+			isFullyExpanded,
+			expandedItemIds,
+			pathname,
+			menuSections,
+			user.info?.userRightIds,
+		],
 	);
 
 	const getDrawerSharedSx = React.useCallback(

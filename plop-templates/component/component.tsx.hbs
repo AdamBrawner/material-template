@@ -1,0 +1,18 @@
+import { Stack } from '@fluentui/react'; 
+
+export interface {{pascalCase componentName}}Props { 
+  target?: string; onDismiss: () => void;
+ } 
+
+export function {{pascalCase componentName}}({ target, onDismiss }:
+{{pascalCase componentName}}Props){
+   return (
+    <Stack horizontal tokens={outerStackTokens}>
+      <h3>{{pascalCase componentName}} has {value}</h3>
+      {/* TODO render your glorious component in JSX...comment extended to preserve outer parenthesis.
+      */}
+    </Stack>
+); 
+}; 
+
+const outerStackTokens = { childrenGap: '1em' };

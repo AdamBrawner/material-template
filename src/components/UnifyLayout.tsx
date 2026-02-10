@@ -4,14 +4,16 @@ import Toolbar from "@mui/material/Toolbar";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import * as React from "react";
 import { Outlet } from "react-router";
+import type { NavigationMenuProps } from "./NavigationMenu";
 import NavigationMenu from "./NavigationMenu";
 import UnifyHeader from "./UnifyHeader";
 
 interface UnifyLayoutProps {
 	title?: string;
+	menuSections: NavigationMenuProps["menuSections"];
 }
 
-export default function UnifyLayout({ title }: UnifyLayoutProps) {
+export default function UnifyLayout({ title, menuSections }: UnifyLayoutProps) {
 	const theme = useTheme();
 
 	const [isDesktopNavigationExpanded, setIsDesktopNavigationExpanded] =
@@ -61,11 +63,14 @@ export default function UnifyLayout({ title }: UnifyLayoutProps) {
 				menuOpen={isNavigationExpanded}
 				onToggleMenu={handleToggleHeaderMenu}
 			/>
-			<NavigationMenu // children
-				expanded={isNavigationExpanded}
-				setExpanded={setIsNavigationExpanded}
-				container={layoutRef?.current ?? undefined}
-			/>
+			{menuSections && (
+				<NavigationMenu
+					expanded={isNavigationExpanded}
+					setExpanded={setIsNavigationExpanded}
+					container={layoutRef?.current ?? undefined}
+					menuSections={menuSections}
+				/>
+			)}
 			<Box
 				sx={{
 					display: "flex",

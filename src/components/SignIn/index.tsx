@@ -94,7 +94,7 @@ export default function SignIn(props: { disableCustomTheme?: boolean }) {
 		}
 		const data = new FormData(event.currentTarget);
 		const username = data.get("username") as string;
-		user.setInfo({ username, accessRights: [1] });
+		user.setInfo({ username, userRightIds: [1] });
 	};
 
 	const validateInputs = () => {
@@ -160,7 +160,10 @@ export default function SignIn(props: { disableCustomTheme?: boolean }) {
 							fullWidth
 							variant="outlined"
 							onClick={() =>
-								user.setInfo({ username: "bauto@ars.com", accessRights: [1] })
+								user.setInfo({
+									username: "corporate@ars.com",
+									userRightIds: [2],
+								})
 							}
 							startIcon={
 								<img
@@ -175,7 +178,12 @@ export default function SignIn(props: { disableCustomTheme?: boolean }) {
 						<Button
 							fullWidth
 							variant="outlined"
-							onClick={() => alert("Sign in with Okta")}
+							onClick={() =>
+								user.setInfo({
+									username: "okta@ars.com",
+									userRightIds: [3],
+								})
+							}
 							startIcon={<OktaIcon />}
 						>
 							Sign in with Okta
