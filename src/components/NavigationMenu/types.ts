@@ -4,8 +4,8 @@ export interface NavigationMenuPageDTO {
 	href?: string;
 	requiresUserRightId?: number;
 	selectForSubPaths?: boolean;
+	/** passed along, but not implemented */
 	defaultExpanded?: boolean;
-	//selectForRootPath?: boolean;
 	/** nested navigation disables link to href */
 	pages?: NavigationMenuPageDTO[];
 }
@@ -29,8 +29,12 @@ export interface NavigationMenuSectionState {
 }
 
 export interface NavigationIntegration {
+	/** All possible app navigation menu sections. Other data will be used to derive NavigationMenuSectionStates from these. */
 	menuSections: readonly NavigationMenuSectionDTO[];
+	/** from router, used with matchPath to mark pages selected. When a page is selected, its parent will be expanded if possible. */
 	pathname: string;
+	/** state from NavigationMenu to expand items the user has chosen to expand.  */
 	expandedItemIds: string[];
+	/** from JWT */
 	userRightIds: number[];
 }

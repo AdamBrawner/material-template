@@ -36,6 +36,7 @@ export default function NavigationMenu({
 	const { pathname } = useLocation();
 
 	const theme = useTheme();
+	// could initialize expandedItemIds with defaultExpanded Ids from menuSections
 	const [expandedItemIds, setExpandedItemIds] = React.useState<string[]>([]);
 
 	const isOverSmViewport = useMediaQuery(theme.breakpoints.up("sm"));
@@ -161,13 +162,15 @@ export default function NavigationMenu({
 				height: "100vh",
 				...getDrawerWidthTransitionMixin(expanded),
 				...(isTemporary ? { position: "absolute" } : {}),
-				"& .MuiDrawer-paper": {
-					position: "absolute",
-					width: drawerWidth,
-					boxSizing: "border-box",
-					backgroundImage: "none",
-					...getDrawerWidthTransitionMixin(expanded),
-				},
+				"& .MuiDrawer-paper": isTemporary
+					? {}
+					: {
+							position: "absolute",
+							width: drawerWidth,
+							boxSizing: "border-box",
+							backgroundImage: "none",
+							...getDrawerWidthTransitionMixin(expanded),
+						},
 			};
 		},
 		[expanded, mini],
