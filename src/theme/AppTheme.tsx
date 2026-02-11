@@ -19,6 +19,8 @@ interface AppThemeProps {
 	themeComponents?: ThemeOptions["components"];
 }
 
+// To include this in a package, need to inject /custom/brand.ts as prop instead of importing it directly in themePrimitives
+
 export default function AppTheme(props: AppThemeProps) {
 	const { children, disableCustomTheme, themeComponents } = props;
 	const theme = React.useMemo(() => {
